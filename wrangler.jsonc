@@ -1,7 +1,18 @@
 {
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Keep this name: it is the Worker that the canonex.app custom domain is
+  // attached to in the Cloudflare dashboard.
   "name": "canonex-site",
   "compatibility_date": "2026-09-26",
+  // Build the Astro site before every `wrangler deploy`, including Workers Builds
+  // deploys from GitHub, so the dashboard needs no separate build command.
+  "build": {
+    "command": "npm run build"
+  },
+  // Static assets only: there is no Worker script. Astro writes the site to ./dist.
   "assets": {
-    "directory": "./public"
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
   }
 }

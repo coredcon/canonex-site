@@ -1,0 +1,262 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Screenshot from '../components/Screenshot.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import DownloadCta from '../components/DownloadCta.astro';
+import { featureGroups, integrations, moreFeatures, statusLabel, type FeatureStatus } from '../data/features';
+
+const legend: FeatureStatus[] = ['built', 'early', 'in-progress', 'planned'];
+---
+
+<BaseLayout
+  title="Features"
+  description="The Canonex Codex, Campaign Graph, desk, session planner, encounter builder and campaign memory, with Pathfinder 2e and Foundry VTT support."
+>
+  <PageHeader kicker="Features" title="Everything your campaign knows, in one place">
+    <p>
+      Canonex is one connected model of your campaign, seen through the tools a GM actually uses. Every feature below is
+      marked with its current status.
+    </p>
+  </PageHeader>
+
+  <div class="wrap">
+    <nav class="toc" aria-label="Feature groups">
+      <ul>
+        {
+          featureGroups.map((f) => (
+            <li>
+              <a href={`#${f.id}`}>{f.kicker}</a>
+            </li>
+          ))
+        }
+        <li><a href="#integrations">Pathfinder 2e &amp; Foundry</a></li>
+        <li><a href="#more">More</a></li>
+      </ul>
+    </nav>
+    <p class="legend">
+      <span class="muted">Status key:</span>
+      {legend.map((s) => <StatusBadge status={s} />)}
+    </p>
+  </div>
+
+  {
+    featureGroups.map((f) => (
+      <section class="section group" id={f.id} aria-labelledby={`${f.id}-title`}>
+        <div class="wrap group-grid">
+          <div class="group-copy">
+            <p class="kicker">{f.kicker}</p>
+            <h2 id={`${f.id}-title`}>{f.title}</h2>
+            <p class="lede">{f.summary}</p>
+            <ul class="points">
+              {f.points.map((p) => (
+                <li>
+                  <span>{p.text}</span>
+                  {p.status && p.status !== f.status ? (
+                    <StatusBadge status={p.status} />
+                  ) : (
+                    <span class="visually-hidden">({statusLabel[f.status]})</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+            <StatusBadge status={f.status} />
+          </div>
+          {f.shot && (
+            <div class="group-shot">
+              <Screenshot
+                src={f.shot.src}
+                alt={f.shot.alt}
+                caption={f.shot.caption}
+                sizes="(min-width: 1100px) 700px, 100vw"
+              />
+            </div>
+          )}
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="section" id="integrations" aria-labelledby="integrations-title">
+    <div class="wrap">
+      <p class="kicker">Integrations</p>
+      <h2 id="integrations-title">Pathfinder 2e and Foundry VTT</h2>
+      <div class="integrations">
+        {
+          integrations.map((i) => (
+            <article class="panel integration">
+              <div class="integration-head">
+                <h3>{i.title}</h3>
+                <StatusBadge status={i.status} />
+              </div>
+              <p class="muted">{i.summary}</p>
+              <ul>
+                {i.points.map((p) => (
+                  <li>{p}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+      <p class="more">Setting up Foundry? See <a href="/docs/foundry-vtt/">Connecting Foundry VTT</a>.</p>
+    </div>
+  </section>
+
+  <section class="section" id="more" aria-labelledby="more-title">
+    <div class="wrap">
+      <p class="kicker">And also</p>
+      <h2 id="more-title">The details that matter at 11pm</h2>
+      <ul class="minor-grid">
+        {
+          moreFeatures.map((m) => (
+            <li class="panel minor">
+              <h3>{m.title}</h3>
+              <p>{m.text}</p>
+              <StatusBadge status={m.status} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <DownloadCta />
+</BaseLayout>
+
+<style>
+  .toc {
+    padding-top: 1.5rem;
+  }
+  .toc ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .toc a {
+    display: block;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+  .toc a:hover {
+    border-color: var(--brass-dim);
+    color: var(--ink);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0 0;
+    font-size: 0.875rem;
+  }
+
+  .group-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+    align-items: start;
+  }
+  .group:nth-of-type(even) .group-grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+  .group:nth-of-type(even) .group-copy {
+    order: 2;
+  }
+  .group h2 {
+    font-size: var(--step-3);
+  }
+  .points {
+    margin: 1.5rem 0;
+    padding: 0;
+    list-style: none;
+  }
+  .points li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.75rem;
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .points li:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+  .points li > span:first-child {
+    flex: 1 1 16rem;
+  }
+
+  .integrations {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .integration {
+    padding: 1.75rem;
+  }
+  .integration-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .integration h3 {
+    margin: 0;
+  }
+  .integration ul {
+    margin: 1rem 0 0;
+    padding-left: 1.1rem;
+  }
+  .integration li {
+    margin-bottom: 0.4rem;
+  }
+  .integration li::marker {
+    color: var(--brass-dim);
+  }
+  .more {
+    margin: 1.5rem 0 0;
+  }
+
+  .minor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: 1rem;
+    margin: 2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .minor {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+  }
+  .minor h3 {
+    font-size: 1.15rem;
+  }
+  .minor p {
+    flex: 1;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 900px) {
+    .group-grid,
+    .group:nth-of-type(even) .group-grid,
+    .integrations {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .group:nth-of-type(even) .group-copy {
+      order: 0;
+    }
+  }
+</style>

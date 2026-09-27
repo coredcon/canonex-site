@@ -1,0 +1,42 @@
+---
+// The Canonex mark: the app's "CX" monogram in a brass frame, beside the name.
+interface Props {
+  showName?: boolean;
+}
+const { showName = true } = Astro.props;
+---
+
+<span class="wordmark">
+  <span class="mark" aria-hidden="true">CX</span>
+  {showName && <span class="name">Canonex</span>}
+</span>
+
+<style>
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--ink);
+  }
+  .mark {
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border: 1px solid var(--brass-dim);
+    border-radius: 5px;
+    background: var(--surface-1);
+    color: var(--brass);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 650;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 560;
+    letter-spacing: 0.01em;
+  }
+</style>

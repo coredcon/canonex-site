@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { release, site } from '../data/site';
+
+const build = release.publicBuild;
+const dateFmt = new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UTC' });
+---
+
+<BaseLayout
+  title="Download"
+  description={build
+    ? `Download Canonex ${build.version} for your desktop.`
+    : 'Canonex is in active development. There is no public build yet; here is what to expect.'}
+>
+  {
+    build ? (
+      <PageHeader kicker={`Canonex ${build.version}`} title="Download Canonex">
+        <p>
+          Released {dateFmt.format(new Date(build.date))}.{' '}
+          {build.notesHref && <a href={build.notesHref}>Read the release notes.</a>}
+        </p>
+      </PageHeader>
+    ) : (
+      <PageHeader kicker={release.stage} title="Canonex isn’t ready to download yet">
+        <p>
+          Canonex is being built now, and every week adds to the development build. The first public build will be
+          published on this page when it is ready for someone else’s table.
+        </p>
+      </PageHeader>
+    )
+  }
+
+  <section class="section">
+    <div class="wrap layout">
+      {
+        build ? (
+          <div class="downloads">
+            <h2 class="visually-hidden">Files</h2>
+            <ul>
+              {build.files.map((f) => (
+                <li class="panel file">
+                  <div>
+                    <h3>{f.platform}</h3>
+                    <p class="muted">
+                      {f.label}
+                      {f.size && ` · ${f.size}`}
+                    </p>
+                    {f.note && <p class="note">{f.note}</p>}
+                  </div>
+                  <a class="button button--primary" href={f.url}>
+                    Download<span class="visually-hidden"> for {f.platform}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div class="status-panel panel">
+            <div class="status-row">
+              <span class="status status--early">{release.stage}</span>
+              <span class="muted">No public build yet</span>
+            </div>
+            <h2>What exists today</h2>
+            <p>
+              The development build already covers the Codex, the Campaign Graph, the desk, session planning and running,
+              encounters, campaign memory, Pathfinder 2e sheets and the Foundry VTT bridge, and it already runs a live
+              Pathfinder 2e campaign.
+            </p>
+            <h2>Before the first public build</h2>
+            <ul>
+              <li>A packaged installer, so nothing else needs installing first.</li>
+              <li>First-run guidance and a sample campaign to explore.</li>
+              <li>Release notes for every build, kept on the Changelog.</li>
+            </ul>
+            <div class="button-row">
+              <a class="button button--primary" href="/changelog/">Follow the changelog</a>
+              <a class="button" href="/roadmap/">See the roadmap</a>
+            </div>
+          </div>
+        )
+      }
+
+      <aside class="side" aria-labelledby="expect-title">
+        <h2 id="expect-title">What to expect</h2>
+        <dl>
+          <dt>Platform</dt>
+          <dd>A native desktop app, developed and tested on Windows.</dd>
+          <dt>Account</dt>
+          <dd>None. Canonex runs entirely on your machine.</dd>
+          <dt>Your data</dt>
+          <dd>Each campaign is a folder of readable JSON files that you own. <a href="/docs/your-data/">More</a></dd>
+          <dt>Game systems</dt>
+          <dd>Deep Pathfinder 2e support. The core is system-neutral.</dd>
+          <dt>Foundry VTT</dt>
+          <dd>Optional. Connects through the Foundry REST API module. <a href="/docs/foundry-vtt/">Setup</a></dd>
+        </dl>
+        {
+          site.contactEmail && (
+            <p>
+              Questions? <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
+            </p>
+          )
+        }
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+    align-items: start;
+  }
+  .status-panel {
+    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+  .status-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+  .status-panel h2 {
+    font-size: var(--step-2);
+    margin-top: 1.75rem;
+  }
+  .status-panel h2:first-of-type {
+    margin-top: 0;
+  }
+  .status-panel ul {
+    padding-left: 1.1rem;
+    margin: 0 0 2rem;
+  }
+  .status-panel li {
+    margin-bottom: 0.4rem;
+  }
+  .status-panel li::marker {
+    color: var(--brass-dim);
+  }
+
+  .downloads ul {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .file {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+  .file h3,
+  .file p {
+    margin: 0;
+  }
+  .note {
+    margin-top: 0.4rem !important;
+    font-size: 0.875rem;
+  }
+
+  .side h2 {
+    font-size: var(--step-2);
+  }
+  dl {
+    margin: 0;
+  }
+  dt {
+    margin-top: 1.1rem;
+    color: var(--brass);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  dd {
+    margin: 0.25rem 0 0;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (max-width: 860px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

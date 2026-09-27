@@ -1,0 +1,375 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Screenshot from '../components/Screenshot.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import DownloadCta from '../components/DownloadCta.astro';
+import { featureGroups, integrations } from '../data/features';
+import { release } from '../data/site';
+import codex from '../assets/screens/codex.png';
+import plan from '../assets/screens/plan.png';
+import desk from '../assets/screens/desk.png';
+import home from '../assets/screens/home.png';
+
+const workflow = [
+  {
+    step: '01',
+    id: 'plan',
+    title: 'Plan',
+    lead: 'Build the session from your campaign.',
+    text: 'Outline the night in beats, then drag in the NPCs, locations, encounters, maps and read-alouds it needs. What you didn’t reach last time carries forward.',
+    shot: {
+      src: plan,
+      alt: 'A session plan with numbered beats, the expected party, and loose material such as NPCs, an encounter and a map.',
+    },
+  },
+  {
+    step: '02',
+    id: 'run',
+    title: 'Run',
+    lead: 'Keep your eyes on the table.',
+    text: 'Summon any record with a keystroke and arrange it on the desk. Related records show their ties. Jot notes, pull a DC or a name, and follow the fight in Foundry, without breaking the scene.',
+    shot: {
+      src: desk,
+      alt: 'NPC cards arranged on the Canonex desk, with relationship threads labelled “confides in” and “owes” between them.',
+    },
+  },
+  {
+    step: '03',
+    id: 'remember',
+    title: 'Remember',
+    lead: 'Let the campaign keep its own history.',
+    text: 'Wrap up what actually happened and make it canon. Canonex tracks every change, the threads you left open, and the faces about to return.',
+    shot: {
+      src: home,
+      alt: 'The campaign Home with Campaign memory: open threads between NPCs, forgotten prep, and the party roster.',
+    },
+  },
+];
+
+const build = release.publicBuild;
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="kicker">The desktop workstation for game masters</p>
+        <h1>Campaign intelligence for tabletop RPGs.</h1>
+        <p class="lede">
+          Canonex keeps your whole campaign — people, places, factions, secrets, sessions and fights — in one connected
+          workspace, so you can plan the next session, run it without losing focus, and remember everything that
+          happened.
+        </p>
+        <div class="button-row">
+          <a class="button button--primary" href="/download/">{build ? 'Download Canonex' : 'Download status'}</a>
+          <a class="button" href="/features/">Explore the features</a>
+        </div>
+        <p class="meta">
+          <span class="status status--early">{release.stage}</span>
+          <span>Desktop app</span>
+          <span aria-hidden="true">·</span>
+          <span>Pathfinder 2e</span>
+          <span aria-hidden="true">·</span>
+          <span>Foundry VTT</span>
+        </p>
+      </div>
+      <div class="hero-shot">
+        <Screenshot
+          src={codex}
+          alt="Canonex showing the Codex: an index of creatures, factions and locations on the left, and an NPC dossier for Rashida al-Qadir with her relationships, identity, secrets and GM notes."
+          title="Canonex — Shadows over Katapesh"
+          priority
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section workflow" aria-labelledby="workflow-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">How it works</p>
+        <h2 id="workflow-title">Plan <span aria-hidden="true">→</span><span class="visually-hidden">, then</span> Run <span aria-hidden="true">→</span><span class="visually-hidden">, then</span> Remember</h2>
+        <p class="lede">
+          A virtual tabletop runs the game world. Canonex runs the GM’s side: what you prepared, what you need right now,
+          and what the campaign has become.
+        </p>
+      </div>
+
+      <ol class="steps">
+        {
+          workflow.map((w) => (
+            <li class="step" id={w.id}>
+              <div class="step-copy">
+                <p class="step-num" aria-hidden="true">{w.step}</p>
+                <h3>{w.title}</h3>
+                <p class="step-lead">{w.lead}</p>
+                <p>{w.text}</p>
+              </div>
+              <div class="step-shot">
+                <Screenshot src={w.shot.src} alt={w.shot.alt} sizes="(min-width: 1000px) 700px, 100vw" />
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="features-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">What’s inside</p>
+        <h2 id="features-title">One campaign, every angle</h2>
+        <p class="lede">Six connected tools that share one model of your campaign, so nothing needs entering twice.</p>
+      </div>
+      <ul class="feature-grid">
+        {
+          featureGroups.map((f) => (
+            <li class="panel feature">
+              <p class="feature-kicker">{f.kicker}</p>
+              <h3>
+                <a href={`/features/#${f.id}`}>{f.title}</a>
+              </h3>
+              <p>{f.summary}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="more"><a href="/features/">See every feature and its status →</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="integrations-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Built for your table</p>
+        <h2 id="integrations-title">Works with the tools you already use</h2>
+      </div>
+      <div class="integrations">
+        {
+          integrations.map((i) => (
+            <article class="panel integration">
+              <div class="integration-head">
+                <h3>{i.title}</h3>
+                <StatusBadge status={i.status} />
+              </div>
+              <p class="muted">{i.summary}</p>
+              <ul>
+                {i.points.map((p) => (
+                  <li>{p}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+      <ul class="principles">
+        <li>
+          <h3>Your files, on your disk</h3>
+          <p>Each campaign is a folder of readable files. No account or subscription, and no cloud lock-in.</p>
+        </li>
+        <li>
+          <h3>A GM instrument, not a VTT</h3>
+          <p>Maps, tokens and dice stay in your virtual tabletop. Canonex handles what you need to know.</p>
+        </li>
+        <li>
+          <h3>System-neutral at the core</h3>
+          <p>Deep Pathfinder 2e support comes first, and the model underneath works for any setting.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <DownloadCta />
+</BaseLayout>
+
+<style>
+  /* ---------- hero ---------- */
+  .hero {
+    padding-block: clamp(3rem, 2rem + 5vw, 6rem) clamp(3rem, 2rem + 4vw, 5rem);
+    overflow: hidden;
+  }
+  .hero-copy {
+    max-width: 50rem;
+  }
+  .hero h1 {
+    max-width: 16ch;
+  }
+  .hero .lede {
+    font-size: clamp(1.05rem, 1rem + 0.35vw, 1.25rem);
+    margin-bottom: 2rem;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.6rem;
+    margin: 1.75rem 0 0;
+    color: var(--ink-muted);
+    font-size: 0.875rem;
+  }
+  .meta .status {
+    margin-right: 0.4rem;
+  }
+  .hero-shot {
+    margin-top: clamp(2.5rem, 2rem + 3vw, 4rem);
+  }
+
+  /* ---------- section heads ---------- */
+  .section-head {
+    max-width: 46rem;
+    margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  }
+
+  /* ---------- workflow ---------- */
+  .steps {
+    display: grid;
+    gap: clamp(3rem, 2rem + 4vw, 6rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);
+    gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+    align-items: center;
+  }
+  .step:nth-child(even) {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 5fr);
+  }
+  .step:nth-child(even) .step-copy {
+    order: 2;
+  }
+  .step-num {
+    margin: 0 0 0.75rem;
+    color: var(--brass-dim);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+  }
+  .step h3 {
+    font-size: var(--step-4);
+    margin-bottom: 0.4rem;
+  }
+  .step-lead {
+    color: var(--ink);
+    font-size: var(--step-1);
+    font-style: italic;
+    font-family: var(--font-display);
+  }
+
+  /* ---------- features ---------- */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .feature {
+    position: relative;
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-left: 2px solid var(--brass-dim);
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .feature:hover {
+    border-left-color: var(--brass);
+    background: var(--surface-2);
+  }
+  .feature-kicker {
+    margin: 0 0 0.5rem;
+    color: var(--brass);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .feature h3 {
+    font-size: 1.3rem;
+  }
+  .feature h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  /* the whole card is the link target */
+  .feature h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .feature p:last-child {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+  .more {
+    margin: 1.75rem 0 0;
+  }
+
+  /* ---------- integrations ---------- */
+  .integrations {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .integration {
+    padding: 1.75rem;
+  }
+  .integration-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .integration h3 {
+    margin: 0;
+  }
+  .integration ul {
+    margin: 1rem 0 0;
+    padding-left: 1.1rem;
+  }
+  .integration li {
+    margin-bottom: 0.4rem;
+  }
+  .integration li::marker {
+    color: var(--brass-dim);
+  }
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+    margin: clamp(2.5rem, 2rem + 2vw, 4rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .principles li {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-strong);
+  }
+  .principles h3 {
+    font-size: 1.15rem;
+  }
+  .principles p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 900px) {
+    .step,
+    .step:nth-child(even) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .step:nth-child(even) .step-copy {
+      order: 0;
+    }
+    .integrations,
+    .principles {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,52 @@
+---
+// Closing call to action. Follows release status, so it never promises a download that doesn't exist.
+import { release } from '../data/site';
+
+const build = release.publicBuild;
+---
+
+<section class="cta-band" aria-labelledby="cta-title">
+  <div class="wrap inner">
+    <div>
+      <p class="kicker">{build ? `Canonex ${build.version}` : release.stage}</p>
+      <h2 id="cta-title">{build ? 'Bring Canonex to your next session.' : 'Canonex is being built in the open.'}</h2>
+      <p class="lede">
+        {
+          build
+            ? 'Download the desktop app and open your first campaign in minutes.'
+            : 'There is no public build yet. The Download page says what to expect, and the Changelog shows what lands each week.'
+        }
+      </p>
+    </div>
+    <div class="button-row">
+      <a class="button button--primary" href="/download/">{build ? 'Download Canonex' : 'Download status'}</a>
+      <a class="button" href="/changelog/">Read the changelog</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    border-top: 1px solid var(--border);
+    background: linear-gradient(180deg, rgb(35 32 28 / 0.6), rgb(27 25 23 / 0));
+    padding-block: clamp(3rem, 2rem + 4vw, 5rem);
+  }
+  .inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 2rem;
+  }
+  h2 {
+    font-size: var(--step-3);
+  }
+  .lede {
+    margin-bottom: 0;
+  }
+  @media (max-width: 760px) {
+    .inner {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+</style>

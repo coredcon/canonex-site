@@ -1,0 +1,10 @@
+---
+import { statusLabel, type FeatureStatus } from '../data/features';
+
+interface Props {
+  status: FeatureStatus;
+}
+const { status } = Astro.props;
+---
+
+<span class={`status status--${status}`}>{statusLabel[status]}</span>

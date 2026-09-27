@@ -1,0 +1,107 @@
+---
+import Wordmark from './Wordmark.astro';
+import { site, release } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap grid">
+    <div class="brand">
+      <Wordmark />
+      <p class="muted">{site.tagline}</p>
+      <p class="stage"><span class="status status--early">{release.stage}</span></p>
+    </div>
+    <nav aria-label="Footer">
+      <div>
+        <h2>Product</h2>
+        <ul>
+          <li><a href="/features/">Features</a></li>
+          <li><a href="/download/">Download</a></li>
+          <li><a href="/roadmap/">Roadmap</a></li>
+          <li><a href="/changelog/">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Learn</h2>
+        <ul>
+          <li><a href="/docs/">Documentation</a></li>
+          <li><a href="/docs/getting-started/">Getting started</a></li>
+          <li><a href="/docs/foundry-vtt/">Foundry VTT</a></li>
+          {site.contactEmail && (
+            <li>
+              <a href={`mailto:${site.contactEmail}`}>Contact</a>
+            </li>
+          )}
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="wrap legal">
+    <p>
+      © {year} Canonex. Pathfinder is a trademark of Paizo Inc. Foundry Virtual Tabletop is a trademark of Foundry
+      Gaming LLC. Canonex is not affiliated with either.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    background: rgb(20 18 16 / 0.85);
+    padding-top: 3rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+  .brand p {
+    margin: 1rem 0 0;
+  }
+  nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  h2 {
+    margin: 0 0 0.75rem;
+    color: var(--ink-muted);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    margin-bottom: 0.4rem;
+  }
+  nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  nav a:hover {
+    color: var(--brass);
+  }
+  .legal {
+    margin-top: 2.5rem;
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .legal p {
+    margin: 0;
+    color: var(--ink-faint);
+    font-size: 0.8rem;
+  }
+  @media (max-width: 640px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

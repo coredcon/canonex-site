@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { getDocTree, docHref } from '../../data/docs';
+
+const tree = await getDocTree();
+---
+
+<BaseLayout title="Docs" description="Documentation for Canonex: getting started, sessions, the desk, Pathfinder 2e and Foundry VTT.">
+  <PageHeader kicker="Documentation" title="Learn Canonex">
+    <p>
+      How Canonex is organised, how a session flows through it, and how to connect it to your table. These pages follow
+      the development build and will grow with it.
+    </p>
+  </PageHeader>
+
+  <section class="section">
+    <div class="wrap groups">
+      {
+        tree.map((g) => (
+          <section aria-labelledby={`g-${g.section}`}>
+            <h2 id={`g-${g.section}`} class="kicker">
+              {g.section}
+            </h2>
+            <ul>
+              {g.docs.map((d) => (
+                <li class="panel">
+                  <h3>
+                    <a href={docHref(d)}>{d.data.title}</a>
+                  </h3>
+                  <p>{d.data.description}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .groups {
+    display: grid;
+    gap: 3rem;
+  }
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    position: relative;
+    padding: 1.4rem 1.5rem;
+  }
+  li:hover {
+    background: var(--surface-2);
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+  h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  li p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+  }
+</style>

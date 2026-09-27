@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { roadmap, roadmapUpdated } from '../data/roadmap';
+
+const updated = new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(roadmapUpdated));
+---
+
+<BaseLayout title="Roadmap" description="What is being built in Canonex now, what comes next, and where it is heading.">
+  <PageHeader kicker="Roadmap" title="Where Canonex is heading">
+    <p>
+      Canonex grows from real play: each step is tested at the table before the next one starts. This is the current
+      plan, in rough priority order, without dates. It changes as we learn.
+    </p>
+  </PageHeader>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="lanes">
+        {
+          roadmap.map((lane) => (
+            <section class={`lane lane--${lane.id}`} aria-labelledby={`lane-${lane.id}`}>
+              <header>
+                <h2 id={`lane-${lane.id}`}>{lane.title}</h2>
+                <p class="muted">{lane.blurb}</p>
+              </header>
+              <ol>
+                {lane.items.map((item) => (
+                  <li class="panel">
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))
+        }
+      </div>
+      <p class="updated muted">
+        Last updated <time datetime={roadmapUpdated}>{updated}</time>. For what has already shipped, see the <a
+          href="/changelog/">Changelog</a
+        >.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lanes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .lane header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border-strong);
+  }
+  .lane--now header {
+    border-bottom-color: var(--ember);
+  }
+  .lane--next header {
+    border-bottom-color: var(--brass);
+  }
+  .lane h2 {
+    font-size: var(--step-3);
+    margin-bottom: 0.25rem;
+  }
+  .lane header p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  ol {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    padding: 1.25rem 1.35rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+  li p {
+    margin: 0;
+    font-size: 0.93rem;
+  }
+  .lane--later li {
+    background: rgb(35 32 28 / 0.5);
+    box-shadow: none;
+  }
+  .updated {
+    margin: 2.5rem 0 0;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) {
+    .lanes {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

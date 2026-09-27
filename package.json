@@ -1,0 +1,25 @@
+{
+  "name": "canonex-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The public website for Canonex — campaign intelligence for tabletop RPGs.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "npm run build && wrangler dev",
+    "check": "astro check",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.141.0"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "astro": "^7.3.5"
+  }
+}
