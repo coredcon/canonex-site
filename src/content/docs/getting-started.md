@@ -5,7 +5,7 @@ section: Start here
 order: 1
 ---
 
-> Canonex is in active development and there is no public build yet. These pages describe the current development build, and details may change before release.
+> Canonex 0.9 is in closed beta. These pages describe the beta build, and details may change before release.
 
 ## What Canonex is
 
@@ -17,9 +17,19 @@ It follows one loop:
 2. **Run** it from the desk, pulling up what you need in seconds.
 3. **Remember** what happened, so the campaign keeps its own history.
 
+## Installing
+
+Run the installer. It installs Canonex for your Windows account only, so it needs no admin rights, and adds Canonex to the Start menu. You can also add a desktop shortcut.
+
+The beta installer isn't signed yet, so Windows may say **Windows protected your PC**. Choose **More info**, then **Run anyway**.
+
+A newer version installs over the old one. Uninstalling never deletes your campaigns (see [Your data](/docs/your-data/)).
+
 ## The Campaign Library
 
-Canonex opens on the **Campaign Library**, with one card for each campaign. Use **Start something** to create a new campaign, or open the sample campaign, *Shadows over Katapesh*, to explore a campaign that is already filled in.
+Canonex opens on the **Campaign Library**, with one card for each campaign. The first time, it offers **Take the tour**: a few minutes over the sample campaign, *Shadows over Katapesh*, showing the parts you'll use most. You can take it again any time from the campaign menu.
+
+Use **New campaign** to start your own. Name it and choose its game system: **Pathfinder 2e**, **fifth edition (5E)**, or **Other / my own** for anything else. The system decides the sheets, DCs, encounter maths and the rules content the campaign draws from. You can change it later in Settings.
 
 Each campaign is fully separate: its own records, sessions, desk, encounters and settings.
 
@@ -37,7 +47,7 @@ Inside a campaign, the rail on the left takes you to each area:
 | **Run** | The live cockpit for the session you are running. |
 | **Graph** | The Campaign Graph: every record and every tie between them. |
 | **Encounters** | Build and run encounters. |
-| **Settings** | Record types, colours, themes and Foundry VTT. |
+| **Settings** | The game system, record types, colours, themes, backups and Foundry VTT. |
 
 ## Your first ten minutes
 
@@ -45,6 +55,7 @@ Inside a campaign, the rail on the left takes you to each area:
 2. Open the **Codex**, pick an NPC, and read their sheet: identity, relationships, secrets and GM notes.
 3. Press <kbd>Ctrl</kbd> + <kbd>K</kbd> and type a name to **summon** a record onto the desk.
 4. Summon a second, related record and drop it near the first. The tie between them appears.
-5. Go to **Sessions**, create a session, and drag a few records into its outline.
+5. Back in the Codex, drag a record from the list onto the **Relationships** section of another record's sheet to tie them, then open the **Graph** to see the whole web.
+6. Go to **Sessions**, create a session, and drag a few records into its outline.
 
 Next: [Core concepts](/docs/core-concepts/).

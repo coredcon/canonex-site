@@ -12,7 +12,7 @@ export interface RoadmapLane {
   items: RoadmapItem[];
 }
 
-export const roadmapUpdated = '2026-09-26';
+export const roadmapUpdated = '2026-10-08';
 
 export const roadmap: RoadmapLane[] = [
   {
@@ -21,12 +21,16 @@ export const roadmap: RoadmapLane[] = [
     blurb: 'Being designed or built at the moment.',
     items: [
       {
-        title: 'Facts and knowledge',
-        text: 'Facts as records, with who knows, suspects or wrongly believes each one, and when they learned it. The foundation for answering “who knows what?”',
+        title: 'Closed beta (0.9)',
+        text: 'Canonex 0.9 is with a small group of testers. Their sessions decide what gets polished first.',
       },
       {
-        title: 'Session night polish',
-        text: 'Refining Jot, the GM bar and the Scene Runner from real play.',
+        title: 'Public beta',
+        text: 'A Windows installer published on the Download page, with release notes on the Changelog.',
+      },
+      {
+        title: '5E, refined at the table',
+        text: 'Fifth edition support is new: wording, sheets and encounter maths checked by people who run 5E every week.',
       },
     ],
   },
@@ -36,20 +40,24 @@ export const roadmap: RoadmapLane[] = [
     blurb: 'Planned to follow directly.',
     items: [
       {
-        title: 'Reveals at the table',
-        text: 'Reveal a fact to the party or one character during play, and see what each of them knows.',
+        title: 'Stat blocks from text and PDFs',
+        text: 'Paste a stat block, or open a PDF you own, and Canonex makes the creatures. The readers are built; the window that uses them comes next.',
       },
       {
-        title: 'Clocks and NPC memory',
-        text: 'Progress clocks tied to campaign records, and NPCs that remember how the party treated them.',
+        title: 'Send to your tabletop',
+        text: 'Creatures, NPCs and encounters sent to Foundry VTT, stat blocks ready to paste into Roll20, and token images for Owlbear Rodeo.',
       },
       {
-        title: 'Graph intelligence',
-        text: 'Ask who would know something, map which secrets depend on each other, and see the fallout when a key NPC dies.',
+        title: 'More ways to bring your party in',
+        text: 'Character-sheet PDFs from popular 5E builders and Roll20 characters, beside today’s Pathbuilder, Wanderer’s Guide and Foundry imports.',
       },
       {
-        title: 'Faction turns',
-        text: 'Move factions forward between sessions, with the changes recorded in campaign memory.',
+        title: 'The 2014 5E rules',
+        text: 'Encounter maths and rules text for groups still playing the 2014 edition.',
+      },
+      {
+        title: 'Hazards',
+        text: 'Traps and hazards in the Bestiary and on encounters.',
       },
     ],
   },
@@ -59,8 +67,12 @@ export const roadmap: RoadmapLane[] = [
     blurb: 'Direction, not yet scheduled.',
     items: [
       {
-        title: 'First public build',
-        text: 'A packaged installer, and release notes kept here on the Changelog.',
+        title: 'Session recaps from a recording',
+        text: 'Turn a session’s recording into a recap you review and keep.',
+      },
+      {
+        title: 'Commands in Summon',
+        text: 'Type an action, not just a name: open a session, start an encounter, jump anywhere.',
       },
       {
         title: 'Richer player view',
@@ -69,10 +81,6 @@ export const roadmap: RoadmapLane[] = [
       {
         title: 'More desk widgets',
         text: 'Random tables, timers, audio cues and Foundry encounter controls on the desk.',
-      },
-      {
-        title: 'More game systems',
-        text: 'Canonex’s core is system-neutral. Pathfinder 2e comes first; other systems will follow.',
       },
     ],
   },

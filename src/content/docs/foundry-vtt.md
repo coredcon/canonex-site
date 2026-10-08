@@ -2,7 +2,7 @@
 title: Connecting Foundry VTT
 description: Link Canonex to your Foundry world to pull sheets and follow combats live.
 section: Integrations
-order: 2
+order: 3
 ---
 
 > The Foundry bridge is early and still being refined. It is optional: Canonex works fully without Foundry.
@@ -34,5 +34,11 @@ The API key is stored on your computer, outside every campaign folder, so sharin
 - **Record a combat as a Canonex encounter**, so it becomes part of the campaign's history.
 
 What the bridge can do depends on the permissions the relay grants to your key.
+
+## Live sync
+
+Following combats means Canonex asking the relay for updates every few seconds, and a relay plan can count every request. So it only happens while **Settings → Foundry VTT → Live sync** is on and a session is running. The rest of the time, Canonex checks the connection when a campaign opens and when you act.
+
+Settings shows how many relay requests Canonex has made since it started.
 
 *Foundry Virtual Tabletop is a trademark of Foundry Gaming LLC. Canonex is not affiliated with Foundry Gaming.*
