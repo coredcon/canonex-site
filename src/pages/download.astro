@@ -11,7 +11,7 @@ const dateFmt = new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UT
   title="Download"
   description={build
     ? `Download Canonex ${build.version} for your desktop.`
-    : 'Canonex is in active development. There is no public build yet; here is what to expect.'}
+    : 'Canonex 0.9 is in closed beta. There is no public download yet; here is what to expect.'}
 >
   {
     build ? (
@@ -22,10 +22,10 @@ const dateFmt = new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UT
         </p>
       </PageHeader>
     ) : (
-      <PageHeader kicker={release.stage} title="Canonex isn’t ready to download yet">
+      <PageHeader kicker={release.stage} title="Canonex is in closed beta">
         <p>
-          Canonex is being built now, and every week adds to the development build. The first public build will be
-          published on this page when it is ready for someone else’s table.
+          Canonex 0.9 is with a small group of testers, at their own tables. The public beta will be published on this
+          page, with release notes on the Changelog.
         </p>
       </PageHeader>
     )
@@ -59,18 +59,18 @@ const dateFmt = new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UT
           <div class="status-panel panel">
             <div class="status-row">
               <span class="status status--early">{release.stage}</span>
-              <span class="muted">No public build yet</span>
+              <span class="muted">No public download yet</span>
             </div>
             <h2>What exists today</h2>
             <p>
-              The development build already covers the Codex, the Campaign Graph, the desk, session planning and running,
-              encounters, campaign memory, Pathfinder 2e sheets and the Foundry VTT bridge, and it already runs a live
-              Pathfinder 2e campaign.
+              The beta covers the Codex, the Campaign Graph, the desk, session planning and running, encounters, facts and
+              campaign memory, NPC memory, the world turn, Pathfinder 2e and 5E with their rules content included, and the
+              Foundry VTT bridge. It installs like any Windows app and opens with a guided tour of a sample campaign.
             </p>
-            <h2>Before the first public build</h2>
+            <h2>Before the public beta</h2>
             <ul>
-              <li>A packaged installer, so nothing else needs installing first.</li>
-              <li>First-run guidance and a sample campaign to explore.</li>
+              <li>Fixes and polish from the closed beta’s sessions.</li>
+              <li>A signed Windows installer, published here.</li>
               <li>Release notes for every build, kept on the Changelog.</li>
             </ul>
             <div class="button-row">
@@ -85,13 +85,13 @@ const dateFmt = new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UT
         <h2 id="expect-title">What to expect</h2>
         <dl>
           <dt>Platform</dt>
-          <dd>A native desktop app, developed and tested on Windows.</dd>
+          <dd>A native desktop app for Windows 10 and 11. Installs for your account only; no admin rights needed.</dd>
           <dt>Account</dt>
           <dd>None. Canonex runs entirely on your machine.</dd>
           <dt>Your data</dt>
           <dd>Each campaign is a folder of readable JSON files that you own. <a href="/docs/your-data/">More</a></dd>
           <dt>Game systems</dt>
-          <dd>Deep Pathfinder 2e support. The core is system-neutral.</dd>
+          <dd>Pathfinder 2e and fifth edition (5E), with their open rules content included. Other games work too.</dd>
           <dt>Foundry VTT</dt>
           <dd>Optional. Connects through the Foundry REST API module. <a href="/docs/foundry-vtt/">Setup</a></dd>
         </dl>

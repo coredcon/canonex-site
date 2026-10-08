@@ -11,7 +11,7 @@ const legend: FeatureStatus[] = ['built', 'early', 'in-progress', 'planned'];
 
 <BaseLayout
   title="Features"
-  description="The Canonex Codex, Campaign Graph, desk, session planner, encounter builder and campaign memory, with Pathfinder 2e and Foundry VTT support."
+  description="The Canonex Codex, Campaign Graph, desk, session planner, encounter builder, campaign memory and world turn, for Pathfinder 2e and 5E, with Foundry VTT support."
 >
   <PageHeader kicker="Features" title="Everything your campaign knows, in one place">
     <p>
@@ -30,7 +30,7 @@ const legend: FeatureStatus[] = ['built', 'early', 'in-progress', 'planned'];
             </li>
           ))
         }
-        <li><a href="#integrations">Pathfinder 2e &amp; Foundry</a></li>
+        <li><a href="#integrations">Systems &amp; Foundry</a></li>
         <li><a href="#more">More</a></li>
       </ul>
     </nav>
@@ -80,7 +80,7 @@ const legend: FeatureStatus[] = ['built', 'early', 'in-progress', 'planned'];
   <section class="section" id="integrations" aria-labelledby="integrations-title">
     <div class="wrap">
       <p class="kicker">Integrations</p>
-      <h2 id="integrations-title">Pathfinder 2e and Foundry VTT</h2>
+      <h2 id="integrations-title">Game systems and Foundry VTT</h2>
       <div class="integrations">
         {
           integrations.map((i) => (
@@ -195,7 +195,7 @@ const legend: FeatureStatus[] = ['built', 'early', 'in-progress', 'planned'];
 
   .integrations {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     gap: 1rem;
     margin-top: 2rem;
   }

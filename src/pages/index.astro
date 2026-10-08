@@ -38,7 +38,7 @@ const workflow = [
     id: 'remember',
     title: 'Remember',
     lead: 'Let the campaign keep its own history.',
-    text: 'Wrap up what actually happened and make it canon. Canonex tracks every change, the threads you left open, and the faces about to return.',
+    text: 'Wrap up what actually happened and make it canon. Canonex tracks every change, who knows what, how each NPC feels about the party, and the threads you left open. Between sessions, the world turn moves the factions on.',
     shot: {
       src: home,
       alt: 'The campaign Home with Campaign memory: open threads between NPCs, forgotten prep, and the party roster.',
@@ -69,6 +69,8 @@ const build = release.publicBuild;
           <span>Desktop app</span>
           <span aria-hidden="true">·</span>
           <span>Pathfinder 2e</span>
+          <span aria-hidden="true">·</span>
+          <span>5E</span>
           <span aria-hidden="true">·</span>
           <span>Foundry VTT</span>
         </p>
@@ -120,7 +122,7 @@ const build = release.publicBuild;
       <div class="section-head">
         <p class="kicker">What’s inside</p>
         <h2 id="features-title">One campaign, every angle</h2>
-        <p class="lede">Six connected tools that share one model of your campaign, so nothing needs entering twice.</p>
+        <p class="lede">Connected tools that share one model of your campaign, so nothing needs entering twice.</p>
       </div>
       <ul class="feature-grid">
         {
@@ -173,8 +175,8 @@ const build = release.publicBuild;
           <p>Maps, tokens and dice stay in your virtual tabletop. Canonex handles what you need to know.</p>
         </li>
         <li>
-          <h3>System-neutral at the core</h3>
-          <p>Deep Pathfinder 2e support comes first, and the model underneath works for any setting.</p>
+          <h3>Your system, or your own</h3>
+          <p>Pathfinder 2e and 5E come ready to play, rules content included. Everything that doesn’t need rules works for any game.</p>
         </li>
       </ul>
     </div>
@@ -311,7 +313,7 @@ const build = release.publicBuild;
   /* ---------- integrations ---------- */
   .integrations {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     gap: 1rem;
   }
   .integration {

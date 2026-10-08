@@ -4,7 +4,7 @@ export const site = {
   name: 'Canonex',
   tagline: 'Campaign intelligence for tabletop RPGs.',
   description:
-    'Canonex is a desktop workstation for tabletop RPG game masters: a campaign codex, relationship graph, session planner and table-side desk that remembers everything your campaign has become.',
+    'Canonex is a desktop workstation for tabletop RPG game masters: a campaign codex, relationship graph, session planner and table-side desk for Pathfinder 2e, 5E and your own games, that remembers everything your campaign has become.',
   url: 'https://canonex.app',
   /** Optional contact address shown on Download and in the footer. Leave null to hide it. */
   contactEmail: null as string | null,
@@ -43,6 +43,6 @@ export const release: {
   stage: string;
   publicBuild: PublicBuild | null;
 } = {
-  stage: 'In active development',
+  stage: 'Closed beta (0.9)',
   publicBuild: null,
 };

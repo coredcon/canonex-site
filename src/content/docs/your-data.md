@@ -25,6 +25,16 @@ Each campaign is a folder of readable JSON files:
 
 Because the folder is the campaign, it is also the export and the backup. You can copy it, sync it with a service like Dropbox or OneDrive, or keep it under version control.
 
+## Where it lives
+
+Campaigns are kept in `%APPDATA%\Canonex\campaigns`, one folder each. The program itself is installed separately, so updating or uninstalling Canonex never touches them.
+
+## Backups
+
+- **Automatic**: once a day, opening a campaign backs it up. The newest seven backups of each campaign are kept.
+- **By hand**: right-click a campaign in the Library and choose **Back up…** to save it as a single `.canonex` file, for example to keep or to move to another computer.
+- **Restoring**: **Import campaign…** in the Library, or **Settings → Campaign → Backups**, restores a backup as a copy, so it never overwrites the campaign you have.
+
 ## Deleting a campaign
 
 Deleting a campaign from the Library moves its folder to your system's Recycle Bin, so it can be recovered.
