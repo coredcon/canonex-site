@@ -18,9 +18,17 @@ npm run preview    # build, then serve dist/ through Wrangler exactly as Cloudfl
 
 ## Deploy
 
-Pushing to `main` deploys. Cloudflare Workers Builds runs `npx wrangler deploy`, and `wrangler.jsonc`'s
-`build.command` runs `npm run build` first, so the dashboard needs no build command of its own.
-`npm run deploy` does the same from your machine (requires `wrangler login`).
+Pushing to `main` deploys to **Namecheap** (cPanel shared hosting, since 2026-10-12):
+`.github/workflows/deploy-namecheap.yml` builds the site and uploads `dist/` over FTPS into `public_html`, only
+what changed. It needs three repository secrets (`NAMECHEAP_FTP_SERVER`, `NAMECHEAP_FTP_USERNAME`,
+`NAMECHEAP_FTP_PASSWORD`) from a cPanel FTP account whose directory is `public_html`. Run it by hand from the
+Actions tab with *Run workflow*. `public/.htaccess` gives Apache the 404 page and sends `http://` and `www.` to
+`https://canonex.app`.
+
+Until canonex.app's nameservers move from Cloudflare to Namecheap, Cloudflare Workers Builds also still deploys
+each push (`npx wrangler deploy` with `wrangler.jsonc`) and is what visitors see. After the move, disconnect the
+Worker in the Cloudflare dashboard and remove `wrangler.jsonc`, the `wrangler` dependency and the `preview` /
+`deploy` scripts.
 
 ## Where things live
 

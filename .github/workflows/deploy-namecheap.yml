@@ -1,0 +1,44 @@
+# Build the site and upload dist/ to the Namecheap hosting account (2026-10-12).
+# Runs on every push to main, and by hand from the Actions tab (Run workflow).
+# Needs three repository secrets (Settings ▸ Secrets and variables ▸ Actions), from a cPanel FTP account
+# whose directory is public_html:
+#   NAMECHEAP_FTP_SERVER    the FTP server, e.g. ftp.canonex.app or the server name in cPanel
+#   NAMECHEAP_FTP_USERNAME  e.g. deploy@canonex.app
+#   NAMECHEAP_FTP_PASSWORD
+name: Deploy to Namecheap
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-namecheap
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      # Only what changed is uploaded; files removed from the site are removed from the server too. The action
+      # keeps its own record of what it uploaded in public_html/.ftp-deploy-sync-state.json.
+      - name: Upload dist/ to public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.NAMECHEAP_FTP_SERVER }}
+          username: ${{ secrets.NAMECHEAP_FTP_USERNAME }}
+          password: ${{ secrets.NAMECHEAP_FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ./
