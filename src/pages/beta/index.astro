@@ -1,0 +1,163 @@
+---
+// The closed beta testers' page (2026-10-12). Lives at /beta/, which cPanel's Directory Privacy protects with a
+// password, and stays out of search engines and the sitemap. The build's details are `closedBeta` in site.ts.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { closedBeta, site } from '../../data/site';
+
+const dateFmt = new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UTC' });
+const email = site.contactEmail ?? 'feedback@canonex.app';
+---
+
+<BaseLayout title="Closed beta" description="Canonex closed beta: download and testing notes." noindex>
+  <PageHeader kicker={`Closed beta · ${closedBeta.version}`} title="Thanks for testing Canonex">
+    <p>
+      This page is only for testers. Please don't pass on the link or the password; if someone else would like to
+      test, send their name to <a href={`mailto:${email}`}>{email}</a>.
+    </p>
+  </PageHeader>
+
+  <section class="section">
+    <div class="wrap layout">
+      <div class="main">
+        <div class="panel file">
+          <div>
+            <h2>Windows 10 and 11</h2>
+            <p class="muted">
+              Canonex {closedBeta.version} installer · {closedBeta.size} · {dateFmt.format(new Date(closedBeta.date))}
+            </p>
+          </div>
+          <a class="button button--primary" href={`/beta/${closedBeta.file}`} download>Download</a>
+        </div>
+
+        <h2>Installing</h2>
+        <ol>
+          <li>Run <code>{closedBeta.file}</code>. It installs for your account only, with no admin rights needed.</li>
+          <li>
+            Windows may say <strong>“Windows protected your PC”</strong>: the installer isn't signed yet. Click
+            <strong>More info</strong>, then <strong>Run anyway</strong>.
+          </li>
+          <li>
+            Canonex opens on the Library. <strong>Take the tour</strong> first: it opens a sample campaign and shows
+            you around in about two minutes.
+          </li>
+        </ol>
+
+        <h2>What to try</h2>
+        <ul>
+          <li>The tour, then click around the sample: it's there to be messed with.</li>
+          <li>Start your own campaign in Pathfinder 2e or 5E and add the people and places of a game you know.</li>
+          <li>Tie records together, on a sheet or in the Graph.</li>
+          <li>Plan a session, run it, and wrap it up.</li>
+          <li>Build an encounter from the Bestiary and run it.</li>
+        </ul>
+        <p>Anything confusing counts as a bug. So does anything you expected to find and didn't.</p>
+
+        <h2>Sending feedback</h2>
+        <ol>
+          <li>
+            In Canonex, click <strong>Feedback</strong> at the top right (or <strong>Send feedback</strong> in the
+            Library).
+          </li>
+          <li>
+            Say what happened, or what you'd like. Canonex saves a zip on your Desktop with your note and its log,
+            and opens an email to {email}.
+          </li>
+          <li>Drag the zip into that email and send it.</li>
+        </ol>
+        <p>
+          If Canonex ever closes unexpectedly, it offers to do this the next time it starts. No email app? Send the zip
+          to <a href={`mailto:${email}`}>{email}</a> from your webmail.
+        </p>
+      </div>
+
+      <aside class="side" aria-labelledby="know-title">
+        <h2 id="know-title">Good to know</h2>
+        <dl>
+          <dt>Your data</dt>
+          <dd>
+            Campaigns are folders in <code>%APPDATA%\Canonex</code>, on your computer only. Nothing is uploaded.
+          </dd>
+          <dt>New builds</dt>
+          <dd>
+            There's no auto-update yet. New builds appear on this page; a newer installer installs over the old one and
+            keeps your campaigns.
+          </dd>
+          <dt>Uninstalling</dt>
+          <dd>Settings ▸ Apps ▸ Installed apps ▸ Canonex. Your campaigns stay in <code>%APPDATA%\Canonex</code>.</dd>
+          <dt>Needs</dt>
+          <dd>
+            Windows 10 or 11 (64-bit), about 600 MB of disk, and a graphics card with OpenGL 3.3 (almost any from the
+            last ten years).
+          </dd>
+          <dt>Foundry VTT</dt>
+          <dd>Optional. <a href="/docs/foundry-vtt/">Setup</a></dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+    align-items: start;
+  }
+  .main h2 {
+    font-size: var(--step-2);
+    margin-top: 2.25rem;
+  }
+  .main ol,
+  .main ul {
+    padding-left: 1.2rem;
+  }
+  .main li {
+    margin-bottom: 0.5rem;
+  }
+  .main li::marker {
+    color: var(--brass-dim);
+  }
+  .file {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+  .file h2,
+  .file p {
+    margin: 0;
+  }
+  .file h2 {
+    font-size: var(--step-1);
+  }
+
+  .side h2 {
+    font-size: var(--step-2);
+  }
+  dl {
+    margin: 0;
+  }
+  dt {
+    margin-top: 1.1rem;
+    color: var(--brass);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  dd {
+    margin: 0.25rem 0 0;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (max-width: 860px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
