@@ -10,5 +10,6 @@ export default defineConfig({
   // `/features/` style URLs: each page is a folder with an index.html, and Apache adds the slash to `/features`.
   build: { format: 'directory' },
   trailingSlash: 'ignore',
-  integrations: [sitemap()],
+  // The testers' page (/beta/, password-protected in cPanel) stays out of the sitemap.
+  integrations: [sitemap({ filter: (page) => !page.includes('/beta/') })],
 });

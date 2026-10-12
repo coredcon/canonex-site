@@ -12,9 +12,11 @@ interface Props {
   /** Page title; the site name is appended. Omit on the homepage. */
   title?: string;
   description?: string;
+  /** Keep the page out of search engines (the testers' page). */
+  noindex?: boolean;
 }
 
-const { title, description = site.description } = Astro.props;
+const { title, description = site.description, noindex = false } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} — ${site.tagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url);
 const og = await getImage({ src: ogSource, width: 1200, format: 'jpg', quality: 80 });
@@ -41,6 +43,7 @@ const ogUrl = new URL(og.src, Astro.site ?? site.url);
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogUrl} />
     <meta name="twitter:card" content="summary_large_image" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

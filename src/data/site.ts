@@ -7,7 +7,7 @@ export const site = {
     'Canonex is a desktop workstation for tabletop RPG game masters: a campaign codex, relationship graph, session planner and table-side desk for Pathfinder 2e, 5E and your own games, that remembers everything your campaign has become.',
   url: 'https://canonex.app',
   /** Optional contact address shown on Download and in the footer. Leave null to hide it. */
-  contactEmail: null as string | null,
+  contactEmail: 'feedback@canonex.app' as string | null,
 };
 
 export const nav = [
@@ -39,6 +39,20 @@ export interface PublicBuild {
  * When the first public build exists, set `publicBuild` and the site switches from
  * "in development" messaging to real download buttons. Nothing else needs to change.
  */
+/**
+ * The closed beta's build, shown on the testers' page (/beta/), which cPanel's Directory Privacy keeps behind a
+ * password. The installer itself is uploaded by hand to public_html/beta/ with cPanel's File Manager (it's far
+ * over GitHub's file-size limit); the deploy only touches files it uploaded, so it never deletes it.
+ * A new build: upload the new installer, then change these values.
+ */
+export const closedBeta = {
+  version: '0.9.0',
+  /** ISO date of the build. */
+  date: '2026-10-12',
+  file: 'Canonex-0.9.0-Setup.exe',
+  size: '162 MB',
+};
+
 export const release: {
   stage: string;
   publicBuild: PublicBuild | null;
