@@ -5,10 +5,6 @@ dist/
 # dependencies
 node_modules/
 
-# wrangler local state
-.wrangler/
-.dev.vars*
-
 # logs and env
 npm-debug.log*
 .env

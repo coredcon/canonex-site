@@ -3,10 +3,12 @@
 # Astro builds 404.html; serve it for anything that isn't there.
 ErrorDocument 404 /404.html
 
-# HTTPS only (every .app domain must be) and one address: www.canonex.app → canonex.app.
+# Private dotfiles; HTTPS only (every .app domain must be); one address: www.canonex.app → canonex.app.
 # Certificate checks (/.well-known/) are left alone so cPanel's AutoSSL can renew the certificate.
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # Dotfiles stay private: this file and the deploy's record (.ftp-deploy-sync-state.json).
+  RewriteRule (^|/)\.(?!well-known(/|$)) - [F,L]
   RewriteCond %{REQUEST_URI} !^/\.well-known/
   RewriteCond %{HTTPS} off [OR]
   RewriteCond %{HTTP_HOST} ^www\. [NC]

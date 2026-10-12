@@ -2,18 +2,17 @@
 
 The public website for [Canonex](https://canonex.app): campaign intelligence for tabletop RPGs.
 
-A static [Astro](https://astro.build) site, deployed as static assets on a Cloudflare Worker (`canonex-site`)
-that serves `canonex.app`.
+A static [Astro](https://astro.build) site, hosted on Namecheap (cPanel shared hosting) at `canonex.app`.
 
 ## Develop
 
-Requires Node 22.12+ (Cloudflare builds with Node 24, pinned in `.node-version`).
+Requires Node 22.12+ (the deploy builds with Node 24, pinned in `.node-version`).
 
 ```bash
 npm install
 npm run dev        # http://localhost:4321, live reload
 npm run build      # type-check (astro check) and build to dist/
-npm run preview    # build, then serve dist/ through Wrangler exactly as Cloudflare will
+npm run preview    # build, then serve dist/ locally (Astro's preview server; .htaccess rules don't apply)
 ```
 
 ## Deploy
@@ -22,13 +21,12 @@ Pushing to `main` deploys to **Namecheap** (cPanel shared hosting, since 2026-10
 `.github/workflows/deploy-namecheap.yml` builds the site and uploads `dist/` over FTPS into `public_html`, only
 what changed. It needs three repository secrets (`NAMECHEAP_FTP_SERVER`, `NAMECHEAP_FTP_USERNAME`,
 `NAMECHEAP_FTP_PASSWORD`) from a cPanel FTP account whose directory is `public_html`. Run it by hand from the
-Actions tab with *Run workflow*. `public/.htaccess` gives Apache the 404 page and sends `http://` and `www.` to
-`https://canonex.app`.
+Actions tab with *Run workflow*. `public/.htaccess` gives Apache the 404 page, keeps dotfiles (itself, the
+deploy's `.ftp-deploy-sync-state.json`) private, and sends `http://` and `www.` to `https://canonex.app`.
 
-Until canonex.app's nameservers move from Cloudflare to Namecheap, Cloudflare Workers Builds also still deploys
-each push (`npx wrangler deploy` with `wrangler.jsonc`) and is what visitors see. After the move, disconnect the
-Worker in the Cloudflare dashboard and remove `wrangler.jsonc`, the `wrangler` dependency and the `preview` /
-`deploy` scripts.
+canonex.app's DNS, email (MX, SPF) and HTTPS certificate (Namecheap SSL) are all managed in cPanel: the domain
+uses Namecheap's hosting nameservers (`dns1` / `dns2.namecheaphosting.com`), set at the registrar, Porkbun.
+Until 2026-10-12 the site was a Cloudflare Worker; nothing of that setup is left in this repo.
 
 ## Where things live
 
