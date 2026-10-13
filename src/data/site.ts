@@ -48,7 +48,7 @@ export interface PublicBuild {
 export const closedBeta = {
   version: '0.9.0',
   /** ISO date of the build. */
-  date: '2026-10-12',
+  date: '2026-10-13',
   file: 'Canonex-0.9.0-Setup.exe',
   size: '162 MB',
 };
