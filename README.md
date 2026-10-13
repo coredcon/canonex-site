@@ -24,6 +24,16 @@ what changed. It needs three repository secrets (`NAMECHEAP_FTP_SERVER`, `NAMECH
 Actions tab with *Run workflow*. `public/.htaccess` gives Apache the 404 page, keeps dotfiles (itself, the
 deploy's `.ftp-deploy-sync-state.json`) private, and sends `http://` and `www.` to `https://canonex.app`.
 
+**Beta installers** (the password-protected `/beta/` page) don't go through the repo: they're far over GitHub's
+file-size limit. Attach the installer to a **draft** release here (drafts are private), then run
+`.github/workflows/upload-beta-installer.yml` with that release's tag; it copies the `.exe` into `public_html/beta/`
+over FTPS with the same secrets and checks the size on the server. Then update `closedBeta` in `src/data/site.ts`.
+
+```bash
+gh release create beta-0.9.0-2026-10-13 --draft --target main --title "Canonex 0.9.0 closed beta" --notes "" Canonex-0.9.0-Setup.exe
+gh workflow run upload-beta-installer.yml -f tag=beta-0.9.0-2026-10-13
+```
+
 canonex.app's DNS, email (MX, SPF) and HTTPS certificate (Namecheap SSL) are all managed in cPanel: the domain
 uses Namecheap's hosting nameservers (`dns1` / `dns2.namecheaphosting.com`), set at the registrar, Porkbun.
 Until 2026-10-12 the site was a Cloudflare Worker; nothing of that setup is left in this repo.

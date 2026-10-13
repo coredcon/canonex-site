@@ -1,0 +1,42 @@
+# Put a beta installer into public_html/beta/ (2026-10-13) without anyone typing the FTP password: the installer goes
+# up as an asset of a DRAFT release in this repo (drafts are only visible to people with write access), and this
+# workflow copies it over FTPS with the same secrets as the site deploy, then checks the size on the server.
+# Run it from the Actions tab, or: gh workflow run upload-beta-installer.yml -f tag=<draft release tag>
+# Then set closedBeta in src/data/site.ts if the file name, size or date changed.
+name: Upload beta installer
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag of the draft release holding the installer, e.g. beta-0.9.0-2026-10-13
+        required: true
+
+permissions:
+  contents: write   # draft releases need write access to be read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download the installer from the draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download "${{ inputs.tag }}" --repo "${{ github.repository }}" --pattern '*.exe' --dir upload
+
+      - name: Upload to public_html/beta over FTPS, then check the size on the server
+        env:
+          FTP_SERVER: ${{ secrets.NAMECHEAP_FTP_SERVER }}
+          FTP_USER: ${{ secrets.NAMECHEAP_FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.NAMECHEAP_FTP_PASSWORD }}
+        run: |
+          printf 'machine %s login %s password %s\n' "$FTP_SERVER" "$FTP_USER" "$FTP_PASS" > "$RUNNER_TEMP/netrc"
+          for f in upload/*.exe; do
+            name="$(basename "$f")"
+            curl --fail --silent --show-error --ssl-reqd --netrc-file "$RUNNER_TEMP/netrc" -T "$f" "ftp://$FTP_SERVER/beta/$name"
+            local_size="$(stat -c %s "$f")"
+            remote_size="$(curl --fail --silent --ssl-reqd --netrc-file "$RUNNER_TEMP/netrc" -I "ftp://$FTP_SERVER/beta/$name" | tr -d '\r' | awk -F': ' 'tolower($1)=="content-length" {print $2}')"
+            echo "$name: $local_size bytes here, $remote_size on the server"
+            [ "$local_size" = "$remote_size" ]
+          done
+          rm -f "$RUNNER_TEMP/netrc"

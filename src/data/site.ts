@@ -41,9 +41,9 @@ export interface PublicBuild {
  */
 /**
  * The closed beta's build, shown on the testers' page (/beta/), which cPanel's Directory Privacy keeps behind a
- * password. The installer itself is uploaded by hand to public_html/beta/ with cPanel's File Manager (it's far
- * over GitHub's file-size limit); the deploy only touches files it uploaded, so it never deletes it.
- * A new build: upload the new installer, then change these values.
+ * password. The installer (far over GitHub's file-size limit for the repo) goes up as an asset of a draft release,
+ * and the "Upload beta installer" workflow copies it to public_html/beta/; the site deploy only touches files it
+ * uploaded, so it never deletes it. A new build: upload it that way, then change these values.
  */
 export const closedBeta = {
   version: '0.9.0',
