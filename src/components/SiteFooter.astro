@@ -10,6 +10,7 @@ const year = new Date().getFullYear();
     <div class="brand">
       <Wordmark />
       <p class="muted">{site.tagline}</p>
+      <p class="company">A product from <a href="https://productivetangent.com/">Productive Tangent</a>.</p>
       <p class="stage"><span class="status status--early">{release.stage}</span></p>
     </div>
     <nav aria-label="Footer">
@@ -62,6 +63,18 @@ const year = new Date().getFullYear();
   }
   .brand p {
     margin: 1rem 0 0;
+  }
+  .company {
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+  }
+  .company a {
+    color: var(--brass);
+    font-weight: 650;
+    text-underline-offset: 0.2em;
+  }
+  .company a:hover {
+    color: var(--ink);
   }
   nav {
     display: grid;
