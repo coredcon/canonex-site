@@ -27,7 +27,7 @@ A newer version installs over the old one. Uninstalling never deletes your campa
 
 ## The Campaign Library
 
-Canonex opens on the **Campaign Library**, with one card for each campaign. The first time, it offers **Take the tour**: a few minutes over the sample campaign, *Shadows over Katapesh*, showing the parts you'll use most. You can take it again any time from the campaign menu.
+Canonex opens on the **Campaign Library**, with one card for each campaign. The first time, it offers **Take the tour**: a few minutes over the sample campaign, *Shadows over Sarqand*, showing the parts you'll use most. You can take it again any time from the campaign menu.
 
 Use **New campaign** to start your own. Name it and choose its game system: **Pathfinder 2e**, **fifth edition (5E)**, or **Other / my own** for anything else. The system decides the sheets, DCs, encounter maths and the rules content the campaign draws from. You can change it later in Settings.
 

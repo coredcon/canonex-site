@@ -70,7 +70,7 @@ export const featureGroups: FeatureGroup[] = [
     shot: {
       src: graph,
       alt: 'The Campaign Graph: records as coloured discs joined by solid and dashed ties, the party clustered to one side.',
-      caption: 'The Campaign Graph. Brass lines are story ties; dashed ember lines are secrets.',
+      caption: 'The Campaign Graph. Story ties run from green (allied) through brass to red (opposed); dashed lines are secrets.',
     },
   },
   {
@@ -88,8 +88,8 @@ export const featureGroups: FeatureGroup[] = [
     ],
     shot: {
       src: desk,
-      alt: 'The Canonex desk with NPC cards arranged on a dark workspace, joined by labelled relationship threads.',
-      caption: 'The desk: cards placed near each other reveal their ties.',
+      alt: 'The Canonex desk for a session under way: cards for two NPCs and a tavern, the night’s two encounters ready to start, and a GM note.',
+      caption: 'The session desk: the night’s people, places and encounters within reach.',
     },
   },
   {
@@ -107,8 +107,8 @@ export const featureGroups: FeatureGroup[] = [
     ],
     shot: {
       src: plan,
-      alt: 'A session plan titled Session 33, The Foundry Below, with beats, the expected party and loose material.',
-      caption: 'Session planning: beats, the expected party and loose material.',
+      alt: 'Session 33, The Foundry Below, under way: three beats holding NPCs, places and encounters, the first one reached, the party, and the Codex beside it to drag from.',
+      caption: 'A session plan: beats holding the night’s people, places and encounters.',
     },
   },
   {
