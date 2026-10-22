@@ -46,10 +46,10 @@ export interface PublicBuild {
  * uploaded, so it never deletes it. A new build: upload it that way, then change these values.
  */
 export const closedBeta = {
-  version: '0.9.1',
+  version: '0.9.3',
   /** ISO date of the build. */
-  date: '2026-10-14',
-  file: 'Canonex-0.9.1-Setup.exe',
+  date: '2026-10-22',
+  file: 'Canonex-0.9.3-Setup.exe',
   size: '163 MB',
 };
 
